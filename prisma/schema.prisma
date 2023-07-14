@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Supervisor {
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String         @unique
+  phone         String         @unique
+  googleScholar String
+  experience    Educational[]
+  students      Student[]
+  Conversation  Conversation[]
+}
+
+model Verification {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  try            Int      @default(0)
+  code           String
+  lastResendTime DateTime
+}
+
+model Educational {
+  id           Int         @id @default(autoincrement())
+  title        String
+  level        String
+  university   String
+  Supervisor   Supervisor? @relation(fields: [supervisorId], references: [id])
+  supervisorId Int?
+}
+
+model Student {
+  id            Int     @id @default(autoincrement())
+  name          String
+  email         String
+  field         String
+  studentNumber String
+  isGraduated   Boolean @default(false)
+
+  supervisor   Supervisor     @relation(fields: [supervisorId], references: [id])
+  supervisorId Int
+  Conversation Conversation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Conversation {
+  id           Int        @id @default(autoincrement())
+  messages     Messages[]
+  student      Student    @relation(fields: [studentId], references: [id])
+  supervisor   Supervisor @relation(fields: [supervisorId], references: [id])
+  studentId    Int
+  supervisorId Int
+
+  createdAt DateTime @default(now())
+}
+
+model Messages {
+  id             Int           @id @default(autoincrement())
+  text           String
+  file           String?
+  sender         Sender
+  Conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  conversationId Int?
+}
+
+enum Sender {
+  student
+  supervisor
+}
