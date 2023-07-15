@@ -1,0 +1,96 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Supervisor {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Student {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Conversation {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type AuthPayload {
+  access_token: String!
+}
+
+type CodePayload {
+  success: Boolean!
+}
+
+type Query {
+  supervisor(id: Int!): Supervisor!
+  student(id: Int!): Student!
+  conversation(id: Int!): Conversation!
+}
+
+type Mutation {
+  createSupervisor(createSupervisorInput: CreateSupervisorInput!): Supervisor!
+  updateSupervisor(updateSupervisorInput: UpdateSupervisorInput!): Supervisor!
+  removeSupervisor(id: Int!): Supervisor!
+  createStudent(createStudentInput: CreateStudentInput!): Student!
+  updateStudent(updateStudentInput: UpdateStudentInput!): Student!
+  removeStudent(id: Int!): Student!
+  createConversation(createConversationInput: CreateConversationInput!): Conversation!
+  updateConversation(updateConversationInput: UpdateConversationInput!): Conversation!
+  removeConversation(id: Int!): Conversation!
+  register(registerInput: RegisterInput!): AuthPayload!
+  login(loginInput: LoginInput!): AuthPayload!
+  sendCode(verificationInput: VerificationInput!): CodePayload!
+}
+
+input CreateSupervisorInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateSupervisorInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateStudentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateStudentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateConversationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateConversationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input RegisterInput {
+  nationalCode: String!
+  email: String!
+  password: String
+  code: Float!
+}
+
+input LoginInput {
+  nationalCode: String!
+  password: String!
+}
+
+input VerificationInput {
+  email: String!
+}

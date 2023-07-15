@@ -9,7 +9,9 @@ export class StudentResolver {
   constructor(private readonly studentService: StudentService) {}
 
   @Mutation(() => Student)
-  createStudent(@Args('createStudentInput') createStudentInput: CreateStudentInput) {
+  createStudent(
+    @Args('createStudentInput') createStudentInput: CreateStudentInput,
+  ) {
     return this.studentService.create(createStudentInput);
   }
 
@@ -24,8 +26,13 @@ export class StudentResolver {
   }
 
   @Mutation(() => Student)
-  updateStudent(@Args('updateStudentInput') updateStudentInput: UpdateStudentInput) {
-    return this.studentService.update(updateStudentInput.id, updateStudentInput);
+  updateStudent(
+    @Args('updateStudentInput') updateStudentInput: UpdateStudentInput,
+  ) {
+    return this.studentService.update(
+      updateStudentInput.id,
+      updateStudentInput,
+    );
   }
 
   @Mutation(() => Student)

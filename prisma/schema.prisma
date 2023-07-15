@@ -17,7 +17,7 @@ model Supervisor {
   phone         String         @unique
   googleScholar String
   experience    Educational[]
-  students      Student[]
+  students      User[]
   Conversation  Conversation[]
 }
 
@@ -38,26 +38,40 @@ model Educational {
   supervisorId Int?
 }
 
-model Student {
+model User {
   id            Int     @id @default(autoincrement())
-  name          String
+  name          String?
   email         String
-  field         String
-  studentNumber String
-  isGraduated   Boolean @default(false)
+  field         String?
+  studentNumber String?
+  nationalCode  String  @unique
+  status        Status  @default(studying)
+  role          Role    @default(student)
+  password      String?
 
-  supervisor   Supervisor     @relation(fields: [supervisorId], references: [id])
-  supervisorId Int
+  supervisor   Supervisor?    @relation(fields: [supervisorId], references: [id])
+  supervisorId Int?
   Conversation Conversation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
 
+enum Role {
+  student
+  admin
+}
+
+enum Status {
+  studying
+  graduated
+  dismissal
+}
+
 model Conversation {
   id           Int        @id @default(autoincrement())
   messages     Messages[]
-  student      Student    @relation(fields: [studentId], references: [id])
+  student      User       @relation(fields: [studentId], references: [id])
   supervisor   Supervisor @relation(fields: [supervisorId], references: [id])
   studentId    Int
   supervisorId Int

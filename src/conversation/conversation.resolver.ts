@@ -9,7 +9,10 @@ export class ConversationResolver {
   constructor(private readonly conversationService: ConversationService) {}
 
   @Mutation(() => Conversation)
-  createConversation(@Args('createConversationInput') createConversationInput: CreateConversationInput) {
+  createConversation(
+    @Args('createConversationInput')
+    createConversationInput: CreateConversationInput,
+  ) {
     return this.conversationService.create(createConversationInput);
   }
 
@@ -24,8 +27,14 @@ export class ConversationResolver {
   }
 
   @Mutation(() => Conversation)
-  updateConversation(@Args('updateConversationInput') updateConversationInput: UpdateConversationInput) {
-    return this.conversationService.update(updateConversationInput.id, updateConversationInput);
+  updateConversation(
+    @Args('updateConversationInput')
+    updateConversationInput: UpdateConversationInput,
+  ) {
+    return this.conversationService.update(
+      updateConversationInput.id,
+      updateConversationInput,
+    );
   }
 
   @Mutation(() => Conversation)
