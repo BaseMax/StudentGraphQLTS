@@ -49,8 +49,7 @@ model User {
   role          Role    @default(student)
   password      String?
 
-  supervisor   Supervisor?    @relation(fields: [supervisorId], references: [id])
-  supervisorId Int?
+  supervisor   Supervisor[]
   Conversation Conversation[]
 
   createdAt DateTime @default(now())
@@ -70,6 +69,8 @@ enum Status {
 
 model Conversation {
   id           Int        @id @default(autoincrement())
+  title        String
+  status       ConversationStatus @default(open)
   messages     Messages[]
   student      User       @relation(fields: [studentId], references: [id])
   supervisor   Supervisor @relation(fields: [supervisorId], references: [id])
@@ -79,6 +80,10 @@ model Conversation {
   createdAt DateTime @default(now())
 }
 
+enum ConversationStatus {
+  open
+  closed
+}
 model Messages {
   id             Int           @id @default(autoincrement())
   text           String
