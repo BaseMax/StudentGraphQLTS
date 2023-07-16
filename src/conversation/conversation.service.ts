@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConversationInput } from './dto/create-conversation.input';
-import { UpdateConversationInput } from './dto/update-conversation.input';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -43,7 +42,7 @@ export class ConversationService {
     return this.prisma.messages.create({ data });
   }
 
-  reciveAllMessages(conversationId: number) {
+  receiveAllMessages(conversationId: number) {
     return this.prisma.messages.findMany({
       where: { conversationId },
     });

@@ -4,6 +4,7 @@ import { Conversation } from './entities/conversation.entity';
 import { PubSub } from 'graphql-subscriptions';
 import { CreateConversationInput } from './dto/create-conversation.input';
 import { GetCurrentUserId } from '../common/decorators/get-currnet-user-id.decorator';
+import { Message } from './entities/message.entity';
 
 @Resolver(() => Conversation)
 export class ConversationResolver {
@@ -21,7 +22,7 @@ export class ConversationResolver {
     return this.conversationService.create(+userId, createConversationInput);
   }
 
-  @Mutation()
+  @Mutation(() => Message)
   async sendMessage(
     @Args('conversationId') conversationId: number,
     @Args('sender') sender: string,
@@ -36,9 +37,9 @@ export class ConversationResolver {
     );
   }
 
-  @Query()
+  @Query(() => [Message])
   getConversationMessages(@Args('conversationId') conversationId: number) {
-    return this.conversationService.reciveAllMessages(conversationId);
+    return this.conversationService.receiveAllMessages(conversationId);
   }
 
   @Query(() => [Conversation], { name: 'getMyConversations' })

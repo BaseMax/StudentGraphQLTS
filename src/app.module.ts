@@ -8,25 +8,25 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { PrismaModule } from './prisma/prisma.module';
 import { MailModule } from './mail/mail.module';
+import { SeminarModule } from './seminar/seminar.module';
+import { UploadModule } from './upload/upload.module';
+import { DissertationModule } from './dissertation/dissertation.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.graphql'),
-      installSubscriptionHandlers: true,
-      subscriptions: {
-        'subscriptions-transport-ws': {
-          path: '/graphql',
-        },
-      },
     }),
+    UploadModule,
     PrismaModule,
     MailModule,
     SupervisorModule,
     StudentModule,
     ConversationModule,
     AuthModule,
+    SeminarModule,
+    DissertationModule,
   ],
 })
 export class AppModule {}

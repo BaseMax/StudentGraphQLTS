@@ -39,21 +39,24 @@ model Educational {
 }
 
 model User {
-  id            Int     @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   name          String?
   email         String
   field         String?
   studentNumber String?
-  nationalCode  String  @unique
-  status        Status  @default(studying)
-  role          Role    @default(student)
+  nationalCode  String         @unique
+  status        Status         @default(studying)
+  role          Role           @default(student)
   password      String?
-
-  supervisor   Supervisor[]
-  Conversation Conversation[]
+  seminar       Seminar        @relation(fields: [seminarId], references: [id])
+  supervisor    Supervisor[]
+  Conversation  Conversation[]
+  profile       Profile?       @relation(fields: [profileId], references: [id])
+  profileId     Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  seminarId Int
 }
 
 enum Role {
@@ -68,12 +71,12 @@ enum Status {
 }
 
 model Conversation {
-  id           Int        @id @default(autoincrement())
+  id           Int                @id @default(autoincrement())
   title        String
   status       ConversationStatus @default(open)
   messages     Messages[]
-  student      User       @relation(fields: [studentId], references: [id])
-  supervisor   Supervisor @relation(fields: [supervisorId], references: [id])
+  student      User               @relation(fields: [studentId], references: [id])
+  supervisor   Supervisor         @relation(fields: [supervisorId], references: [id])
   studentId    Int
   supervisorId Int
 
@@ -84,6 +87,7 @@ enum ConversationStatus {
   open
   closed
 }
+
 model Messages {
   id             Int           @id @default(autoincrement())
   text           String
@@ -96,4 +100,31 @@ model Messages {
 enum Sender {
   student
   supervisor
+}
+
+model Profile {
+  id                Int      @id @default(autoincrement())
+  fatherName        String
+  marital           Boolean  @default(false)
+  BirthDay          DateTime
+  address           String
+  phone             String
+  fieldOfStudy      String
+  orientation       String
+  enteringYear      Int
+  beforeUniversity  String
+  dissertationTopic String
+  numberOfArticls   Int
+  seminarTopic      String?
+
+  User User[]
+}
+
+model Seminar {
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String
+  listOfArticles String[]
+  progress       Int      @default(0)
+  User           User[]
 }

@@ -17,6 +17,13 @@ type Conversation {
   exampleField: Int!
 }
 
+type Message {
+  text: String!
+  file: String
+  sender: Int!
+  Conversation: Conversation!
+}
+
 type AuthPayload {
   access_token: String!
 }
@@ -25,10 +32,24 @@ type CodePayload {
   success: Boolean!
 }
 
+type Seminar {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Dissertation {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Query {
   supervisor(id: Int!): Supervisor!
   student(id: Int!): Student!
+  getConversationMessages(conversationId: Float!): [Message!]!
+  getMyConversations: [Conversation!]!
   conversation(id: Int!): Conversation!
+  seminar(id: Int!): Seminar!
+  dissertation(id: Int!): Dissertation!
 }
 
 type Mutation {
@@ -39,11 +60,17 @@ type Mutation {
   updateStudent(updateStudentInput: UpdateStudentInput!): Student!
   removeStudent(id: Int!): Student!
   createConversation(createConversationInput: CreateConversationInput!): Conversation!
-  updateConversation(updateConversationInput: UpdateConversationInput!): Conversation!
+  sendMessage(conversationId: Float!, sender: String!, text: String!, file: String): Message!
   removeConversation(id: Int!): Conversation!
   register(registerInput: RegisterInput!): AuthPayload!
   login(loginInput: LoginInput!): AuthPayload!
   sendCode(verificationInput: VerificationInput!): CodePayload!
+  createSeminar(createSeminarInput: CreateSeminarInput!): Seminar!
+  updateSeminar(updateSeminarInput: UpdateSeminarInput!): Seminar!
+  removeSeminar(id: Int!): Seminar!
+  createDissertation(createDissertationInput: CreateDissertationInput!): Dissertation!
+  updateDissertation(updateDissertationInput: UpdateDissertationInput!): Dissertation!
+  removeDissertation(id: Int!): Dissertation!
 }
 
 input CreateSupervisorInput {
@@ -69,14 +96,8 @@ input UpdateStudentInput {
 }
 
 input CreateConversationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateConversationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  supervisorId: Int!
+  title: String!
 }
 
 input RegisterInput {
@@ -93,4 +114,26 @@ input LoginInput {
 
 input VerificationInput {
   email: String!
+}
+
+input CreateSeminarInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateSeminarInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateDissertationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateDissertationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
