@@ -8,8 +8,7 @@ type Supervisor {
 }
 
 type Student {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
 }
 
 type Conversation {
@@ -44,6 +43,8 @@ type Dissertation {
 
 type Query {
   supervisor(id: Int!): Supervisor!
+  getAllGraduateStudents: [Student!]!
+  getAllDismissedStudents: [Student!]!
   student(id: Int!): Student!
   getConversationMessages(conversationId: Float!): [Message!]!
   getMyConversations: [Conversation!]!
@@ -56,6 +57,8 @@ type Mutation {
   createSupervisor(createSupervisorInput: CreateSupervisorInput!): Supervisor!
   updateSupervisor(updateSupervisorInput: UpdateSupervisorInput!): Supervisor!
   removeSupervisor(id: Int!): Supervisor!
+  completeProfile(completeProfileInput: CompleteProfileInput!): Student!
+  selectSupervisor(supervisorId: Int!): Student!
   createStudent(createStudentInput: CreateStudentInput!): Student!
   updateStudent(updateStudentInput: UpdateStudentInput!): Student!
   removeStudent(id: Int!): Student!
@@ -74,24 +77,48 @@ type Mutation {
 }
 
 input CreateSupervisorInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  phone: String!
+  email: String!
+  googleScholar: String!
 }
 
 input UpdateSupervisorInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  name: String
+  phone: String
+  email: String
+  googleScholar: String
   id: Int!
 }
 
+input CompleteProfileInput {
+  fatherName: String!
+  marital: Boolean!
+  BirthDay: DateTime!
+  address: String!
+  phone: String!
+  fieldOfStudy: String!
+  orientation: String!
+  enteringYear: Int!
+  beforeUniversity: String!
+  dissertationTopic: String!
+  numberOfArticls: Int!
+  seminarTopic: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 input CreateStudentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  email: String!
+  nationalCode: String!
 }
 
 input UpdateStudentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  email: String
+  nationalCode: String
   id: Int!
 }
 

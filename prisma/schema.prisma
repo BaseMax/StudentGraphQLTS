@@ -44,11 +44,12 @@ model User {
   email         String
   field         String?
   studentNumber String?
+  grade         Grade          @default(master)
   nationalCode  String         @unique
   status        Status         @default(studying)
   role          Role           @default(student)
   password      String?
-  seminar       Seminar        @relation(fields: [seminarId], references: [id])
+  seminar       Seminar?        @relation(fields: [seminarId], references: [id])
   supervisor    Supervisor[]
   Conversation  Conversation[]
   profile       Profile?       @relation(fields: [profileId], references: [id])
@@ -56,7 +57,12 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  seminarId Int
+  seminarId Int?
+}
+
+enum Grade {
+  master
+  phd
 }
 
 enum Role {
