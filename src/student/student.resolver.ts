@@ -3,10 +3,42 @@ import { StudentService } from './student.service';
 import { Student } from './entities/student.entity';
 import { CreateStudentInput } from './dto/create-student.input';
 import { UpdateStudentInput } from './dto/update-student.input';
+import { GetCurrentUserId } from '../common/decorators/get-currnet-user-id.decorator';
+import { Roles } from '../common/decorators/role.decorator';
+import { Role } from '@prisma/client';
+import { CompleteProfileInput } from './dto/compelete-profile.input';
 
 @Resolver(() => Student)
 export class StudentResolver {
   constructor(private readonly studentService: StudentService) {}
+
+  @Mutation(() => Student)
+  completeProfile(
+    @Args('completeProfileInput') completeProfileInput: CompleteProfileInput,
+    @GetCurrentUserId() userId: number,
+  ) {
+    return this.studentService.completeProfile(userId, completeProfileInput);
+  }
+
+  @Mutation(() => Student)
+  selectSupervisor(
+    @Args('supervisorId', { type: () => Int }) supervisorId: number,
+    @GetCurrentUserId() userId: number,
+  ) {
+    return this.studentService.selectSupervisor(supervisorId, userId);
+  }
+
+  @Query(() => [Student])
+  @Roles(Role.admin)
+  getAllGraduateStudents() {
+    return this.studentService.getAllGraduateStudents();
+  }
+
+  @Query(() => [Student])
+  @Roles(Role.admin)
+  getAllDismissedStudents() {
+    return this.studentService.getAllDismissedStudents();
+  }
 
   @Mutation(() => Student)
   createStudent(
