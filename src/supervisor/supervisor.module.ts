@@ -3,6 +3,6 @@ import { SupervisorService } from './supervisor.service';
 import { SupervisorResolver } from './supervisor.resolver';
 
 @Module({
-  providers: [SupervisorResolver, SupervisorService]
+  providers: [SupervisorResolver, SupervisorService],
 })
 export class SupervisorModule {}
