@@ -43,7 +43,7 @@ export class ConversationResolver {
   }
 
   @Query(() => [Conversation], { name: 'getMyConversations' })
-  findMyConversation(@GetCurrentUserId() userId: number) {
+  getMyConversation(@GetCurrentUserId() userId: number) {
     return this.conversationService.findMyConversation(+userId);
   }
 
