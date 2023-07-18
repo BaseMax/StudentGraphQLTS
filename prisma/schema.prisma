@@ -38,6 +38,15 @@ model Educational {
   supervisorId Int?
 }
 
+model Form {
+  id        Int      @id @default(autoincrement())
+  title     String
+  body      String?
+  file      String?
+  Seminar   Seminar? @relation(fields: [seminarId], references: [id])
+  seminarId Int?
+}
+
 model User {
   id            Int            @id @default(autoincrement())
   name          String?
@@ -49,7 +58,7 @@ model User {
   status        Status         @default(studying)
   role          Role           @default(student)
   password      String?
-  seminar       Seminar?        @relation(fields: [seminarId], references: [id])
+  seminar       Seminar?       @relation(fields: [seminarId], references: [id])
   supervisor    Supervisor[]
   Conversation  Conversation[]
   profile       Profile?       @relation(fields: [profileId], references: [id])
@@ -133,4 +142,5 @@ model Seminar {
   listOfArticles String[]
   progress       Int      @default(0)
   User           User[]
+  forms          Form[]
 }

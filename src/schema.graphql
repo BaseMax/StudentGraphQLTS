@@ -9,18 +9,34 @@ type Supervisor {
 
 type Student {
   id: Int!
-}
-
-type Conversation {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  email: String!
+  nationalCode: String!
 }
 
 type Message {
   text: String!
   file: String
-  sender: Int!
+  sender: Sender!
   Conversation: Conversation!
+}
+
+enum Sender {
+  student
+  supervisor
+}
+
+type Conversation {
+  id: Int!
+  title: String!
+  status: ConversationStatus!
+  messages: [Message!]
+  student: Student
+  supervisor: Supervisor
+}
+
+enum ConversationStatus {
+  open
+  closed
 }
 
 type AuthPayload {

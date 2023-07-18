@@ -1,5 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
 import { Conversation } from './conversation.entity';
+import { Sender } from '@prisma/client';
 
 @ObjectType()
 export class Message {
@@ -9,9 +10,13 @@ export class Message {
   @Field(() => String, { nullable: true })
   file: string;
 
-  @Field(() => Int)
-  sender: number;
+  @Field(() => Sender)
+  sender: Sender;
 
   @Field(() => Conversation)
   Conversation: Conversation;
 }
+
+registerEnumType(Sender, {
+  name: 'Sender',
+});

@@ -1,17 +1,14 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ConversationService } from './conversation.service';
 import { Conversation } from './entities/conversation.entity';
-import { PubSub } from 'graphql-subscriptions';
 import { CreateConversationInput } from './dto/create-conversation.input';
 import { GetCurrentUserId } from '../common/decorators/get-currnet-user-id.decorator';
 import { Message } from './entities/message.entity';
+import { Sender } from '@prisma/client';
 
 @Resolver(() => Conversation)
 export class ConversationResolver {
-  private pubSub: PubSub;
-  constructor(private readonly conversationService: ConversationService) {
-    this.pubSub = new PubSub();
-  }
+  constructor(private readonly conversationService: ConversationService) {}
 
   @Mutation(() => Conversation)
   createConversation(
@@ -25,7 +22,7 @@ export class ConversationResolver {
   @Mutation(() => Message)
   async sendMessage(
     @Args('conversationId') conversationId: number,
-    @Args('sender') sender: string,
+    @Args('sender') sender: Sender,
     @Args('text') text: string,
     @Args('file', { nullable: true }) file?: string,
   ) {
