@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-To run the DomainRegistrationGraphQLTS project locally, follow these steps:
+To run the StudentGraphQLTS project locally, follow these steps:
 
 - Clone the repository: `git clone https://github.com/BaseMax/StudentGraphQLTS`
 - Navigate to the project directory: `cd StudentGraphQLTS`
@@ -15,6 +15,7 @@ To run the DomainRegistrationGraphQLTS project locally, follow these steps:
 
 ## Configuration
 Before running the project, you need to configure the following settings in the .env file:
+
 - DATABASE_URL: This is the connection URL for the PostgreSQL database. Replace postgres with your database username and password, and localhost:5432/student?schema=public with your database host and port.
 
 - SECRET_KEY: Set this to a secure secret key for your application.
