@@ -4,4 +4,10 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 export class Student {
   @Field(() => Int)
   id: number;
+
+  @Field(() => String)
+  email: string;
+
+  @Field(() => String)
+  nationalCode: string;
 }
