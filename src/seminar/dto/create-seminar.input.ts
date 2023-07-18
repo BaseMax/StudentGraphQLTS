@@ -2,6 +2,15 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateSeminarInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => String)
+  title: string;
+
+  @Field(() => String)
+  description: string;
+
+  @Field(() => [String])
+  listOfArticles: [string];
+
+  @Field(() => Int, { nullable: true })
+  progress?: number;
 }

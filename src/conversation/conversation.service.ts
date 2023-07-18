@@ -21,6 +21,15 @@ export class ConversationService {
     });
   }
 
+  doneConversation(conversationId: number) {
+    return this.prisma.conversation.update({
+      where: { id: conversationId },
+      data: {
+        status: 'closed',
+      },
+    });
+  }
+
   findMyConversation(studentId: number) {
     return this.prisma.conversation.findMany({
       where: {

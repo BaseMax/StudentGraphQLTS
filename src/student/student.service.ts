@@ -12,7 +12,7 @@ export class StudentService {
     return this.prisma.profile.create({
       data: {
         ...completeProfileInput,
-        User: {
+        user: {
           connect: { id: userId },
         },
       },

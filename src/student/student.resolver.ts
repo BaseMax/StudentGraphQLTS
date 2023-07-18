@@ -28,8 +28,8 @@ export class StudentResolver {
     return this.studentService.selectSupervisor(supervisorId, userId);
   }
 
-  @Query(() => [Student])
   @Roles(Role.admin)
+  @Query(() => [Student] || Student)
   getAllGraduateStudents() {
     return this.studentService.getAllGraduateStudents();
   }

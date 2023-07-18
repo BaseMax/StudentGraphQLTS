@@ -16,7 +16,7 @@ model Supervisor {
   email         String         @unique
   phone         String         @unique
   googleScholar String
-  experience    Educational[]
+  educational   Educational[]
   students      User[]
   Conversation  Conversation[]
 }
@@ -39,12 +39,14 @@ model Educational {
 }
 
 model Form {
-  id        Int      @id @default(autoincrement())
-  title     String
-  body      String?
-  file      String?
-  Seminar   Seminar? @relation(fields: [seminarId], references: [id])
-  seminarId Int?
+  id             Int           @id @default(autoincrement())
+  title          String
+  body           String?
+  file           String?
+  Seminar        Seminar?      @relation(fields: [seminarId], references: [id])
+  seminarId      Int?
+  Dissertation   Dissertation? @relation(fields: [dissertationId], references: [id])
+  dissertationId Int?
 }
 
 model User {
@@ -58,15 +60,13 @@ model User {
   status        Status         @default(studying)
   role          Role           @default(student)
   password      String?
-  seminar       Seminar?       @relation(fields: [seminarId], references: [id])
+  seminar       Seminar[]
   supervisor    Supervisor[]
   Conversation  Conversation[]
-  profile       Profile?       @relation(fields: [profileId], references: [id])
-  profileId     Int?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  seminarId Int?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now())
+  Profile       Profile[]
+  Dissertation  Dissertation[]
 }
 
 enum Grade {
@@ -90,10 +90,10 @@ model Conversation {
   title        String
   status       ConversationStatus @default(open)
   messages     Messages[]
-  student      User               @relation(fields: [studentId], references: [id])
-  supervisor   Supervisor         @relation(fields: [supervisorId], references: [id])
-  studentId    Int
-  supervisorId Int
+  student      User?              @relation(fields: [studentId], references: [id], onDelete: SetNull)
+  supervisor   Supervisor?        @relation(fields: [supervisorId], references: [id], onDelete: SetNull)
+  studentId    Int?
+  supervisorId Int?
 
   createdAt DateTime @default(now())
 }
@@ -131,8 +131,8 @@ model Profile {
   dissertationTopic String
   numberOfArticls   Int
   seminarTopic      String?
-
-  User User[]
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            Int
 }
 
 model Seminar {
@@ -141,6 +141,17 @@ model Seminar {
   description    String
   listOfArticles String[]
   progress       Int      @default(0)
-  User           User[]
   forms          Form[]
+  User           User?    @relation(fields: [userId], references: [id])
+  userId         Int?
+}
+
+model Dissertation {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  subject     String?
+  student     User    @relation(fields: [userId], references: [id])
+  forms       Form[]
+  userId      Int
 }

@@ -5,6 +5,8 @@ import { CreateSupervisorInput } from './dto/create-supervisor.input';
 import { UpdateSupervisorInput } from './dto/update-supervisor.input';
 import { Roles } from '../common/decorators/role.decorator';
 import { Role } from '@prisma/client';
+import { AddEducationalInput } from './dto/add-experience.Input';
+import { Educational } from './entities/experience.entity';
 
 @Resolver(() => Supervisor)
 export class SupervisorResolver {
@@ -16,6 +18,18 @@ export class SupervisorResolver {
     @Args('createSupervisorInput') createSupervisorInput: CreateSupervisorInput,
   ) {
     return this.supervisorService.create(createSupervisorInput);
+  }
+
+  @Mutation(() => Educational)
+  @Roles(Role.admin)
+  addEducational(
+    @Args('supervisorId') supervisorId: number,
+    @Args('addEducationalInput') addEducationalInput: AddEducationalInput,
+  ) {
+    return this.supervisorService.addEducational(
+      supervisorId,
+      addEducationalInput,
+    );
   }
 
   @Query(() => [Supervisor], { name: 'supervisor' })

@@ -2,9 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Supervisor {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type Educational {
+  id: Int!
+  title: String!
+  level: String!
+  university: String!
 }
 
 type Student {
@@ -39,6 +41,17 @@ enum ConversationStatus {
   closed
 }
 
+type Supervisor {
+  id: Int!
+  name: String!
+  email: String!
+  phone: String!
+  googleScholar: String!
+  educational: [Educational!]!
+  students: [Student!]!
+  Conversation: [Conversation!]!
+}
+
 type AuthPayload {
   access_token: String!
 }
@@ -47,9 +60,20 @@ type CodePayload {
   success: Boolean!
 }
 
+type Form {
+  id: Int!
+  title: String!
+  body: String!
+}
+
 type Seminar {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  title: String!
+  description: String!
+  listOfArticles: String!
+  progress: Int!
+  forms: [Form!]!
+  User: Student!
 }
 
 type Dissertation {
@@ -71,6 +95,7 @@ type Query {
 
 type Mutation {
   createSupervisor(createSupervisorInput: CreateSupervisorInput!): Supervisor!
+  addEducational(supervisorId: Float!, addEducationalInput: AddEducationalInput!): Educational!
   updateSupervisor(updateSupervisorInput: UpdateSupervisorInput!): Supervisor!
   removeSupervisor(id: Int!): Supervisor!
   completeProfile(completeProfileInput: CompleteProfileInput!): Student!
@@ -80,11 +105,13 @@ type Mutation {
   removeStudent(id: Int!): Student!
   createConversation(createConversationInput: CreateConversationInput!): Conversation!
   sendMessage(conversationId: Float!, sender: String!, text: String!, file: String): Message!
+  doneConversation(conversationId: Float!): Conversation!
   removeConversation(id: Int!): Conversation!
   register(registerInput: RegisterInput!): AuthPayload!
   login(loginInput: LoginInput!): AuthPayload!
   sendCode(verificationInput: VerificationInput!): CodePayload!
   createSeminar(createSeminarInput: CreateSeminarInput!): Seminar!
+  addForm(dissertationId: Float!, addFormInput: AddFormInput!): Form!
   updateSeminar(updateSeminarInput: UpdateSeminarInput!): Seminar!
   removeSeminar(id: Int!): Seminar!
   createDissertation(createDissertationInput: CreateDissertationInput!): Dissertation!
@@ -97,6 +124,12 @@ input CreateSupervisorInput {
   phone: String!
   email: String!
   googleScholar: String!
+}
+
+input AddEducationalInput {
+  title: String!
+  level: String!
+  university: String!
 }
 
 input UpdateSupervisorInput {
@@ -160,23 +193,35 @@ input VerificationInput {
 }
 
 input CreateSeminarInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  description: String!
+  listOfArticles: [String!]!
+  progress: Int
+}
+
+input AddFormInput {
+  title: String!
+  body: String!
+  file: String
 }
 
 input UpdateSeminarInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  description: String
+  listOfArticles: [String!]
+  progress: Int
   id: Int!
 }
 
 input CreateDissertationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  description: String!
+  subject: String!
 }
 
 input UpdateDissertationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  description: String
+  subject: String
   id: Int!
 }

@@ -11,6 +11,9 @@ import { MailModule } from './mail/mail.module';
 import { SeminarModule } from './seminar/seminar.module';
 import { UploadModule } from './upload/upload.module';
 import { DissertationModule } from './dissertation/dissertation.module';
+import { APP_GUARD } from '@nestjs/core';
+import { GqlAuthGuard } from './auth/guards/jwt.guard';
+import { RolesGuard } from './auth/guards/role.guard';
 
 @Module({
   imports: [
@@ -27,6 +30,16 @@ import { DissertationModule } from './dissertation/dissertation.module';
     AuthModule,
     SeminarModule,
     DissertationModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: GqlAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}

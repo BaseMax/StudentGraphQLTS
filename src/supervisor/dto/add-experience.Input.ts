@@ -1,13 +1,13 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateDissertationInput {
+export class AddEducationalInput {
   @Field(() => String)
   title: string;
 
   @Field(() => String)
-  description: string;
+  level: string;
 
   @Field(() => String)
-  subject: string;
+  university: string;
 }

@@ -34,6 +34,11 @@ export class ConversationResolver {
     );
   }
 
+  @Mutation(() => Conversation)
+  doneConversation(@Args('conversationId') conversationId: number) {
+    return this.conversationService.doneConversation(conversationId);
+  }
+
   @Query(() => [Message])
   getConversationMessages(@Args('conversationId') conversationId: number) {
     return this.conversationService.receiveAllMessages(conversationId);
