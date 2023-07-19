@@ -45,14 +45,19 @@ export class ConversationService {
     text: string,
     file?: string,
   ) {
-    const data: any = { conversationId, sender, text };
+    const data: any = { sender, text };
 
     if (file) {
       data.file = file;
     }
 
     return this.prisma.messages.create({
-      data,
+      data: {
+        Conversation: {
+          connect: { id: conversationId },
+        },
+        ...data,
+      },
       include: { Conversation: true },
     });
   }
