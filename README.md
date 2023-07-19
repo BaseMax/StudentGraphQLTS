@@ -2,6 +2,13 @@
 
 StudentGraphQLTS is a GraphQL-based system built with TypeScript that allows universities, students, and professors to interact and manage academic information. This system provides an API to query and manipulate data related to students, professors, courses, and other university-related entities.
 
+## Screenshots
+![graphql](https://raw.githubusercontent.com/BaseMax/StudentGraphQLTS/main/screenshots/Screenshot%20from%202023-07-19%2023-28-08.png)
+![graphql](https://raw.githubusercontent.com/BaseMax/StudentGraphQLTS/main/screenshots/Screenshot%20from%202023-07-19%2023-28-51.png)
+![graphql](https://raw.githubusercontent.com/BaseMax/StudentGraphQLTS/main/screenshots/Screenshot%20from%202023-07-19%2023-32-38.png)
+![graphql](https://raw.githubusercontent.com/BaseMax/StudentGraphQLTS/main/screenshots/Screenshot%20from%202023-07-19%2023-32-54.png)
+![graphql](https://raw.githubusercontent.com/BaseMax/StudentGraphQLTS/main/screenshots/Screenshot%20from%202023-07-19%2023-33-35.png)
+
 ## Getting Started
 
 To run the StudentGraphQLTS project locally, follow these steps:
